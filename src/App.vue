@@ -1,25 +1,22 @@
 <template>
-  <ScaleSelector/>
-  <TablePage/>
+  <TablePage />
 </template>
 
 <script>
-import TablePage from './pages/TablePage.vue'
-import ScaleSelector from './pages/ScaleSelector.vue'
+import TablePage from "./pages/TablePage.vue";
+import ScaleSelector from "./pages/ScaleSelector.vue";
 
 export default {
-  setup() {
-    
-  },
+  setup() {},
   components: {
     TablePage,
-    ScaleSelector
-  }
-}
+    ScaleSelector,
+  },
+};
 </script>
 
 <style>
-*{
+* {
   font-family: sans-serif;
 }
 </style>
