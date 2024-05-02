@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.urlencoded());
 
 // w - weight
 // b - battery
@@ -18,7 +19,7 @@ type MeasurementQuery = {
   b?: string;
 };
 
-app.get("/m", measurement);
+app.post("/m", measurement);
 
 app.get("/get", get);
 

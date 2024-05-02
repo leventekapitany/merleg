@@ -3,14 +3,14 @@ import { Request, Response } from "express";
 import config from "./config";
 
 export default async function measurement(req: Request, res: Response) {
-  const params = req.query;
+  const params = req.body;
 
   const { w, b } = params;
 
   if (w === undefined || b === undefined) {
     return res.json({
       statusCode: 400,
-      body: "missing parameters v or b",
+      body: "missing parameters w or b",
     });
   }
 
