@@ -1,6 +1,6 @@
 process.env.TZ = "Europe/Budapest";
 
-import express, { Request } from "express";
+import express from "express";
 
 import measurement from "./measurement";
 import get from "./get";
