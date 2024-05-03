@@ -11,6 +11,7 @@ function getTestData(): Measurement[] {
     .reverse()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function getDayData(timestamp: number, id: string): Promise<Measurement[]> {
   const date = new Date(timestamp)
   const year = date.getFullYear()
@@ -18,10 +19,9 @@ export async function getDayData(timestamp: number, id: string): Promise<Measure
   const day = date.getDate()
 
   const result: Measurement[] =
-    //import.meta.env.MODE === 'test'
-    true === true
+    import.meta.env.MODE === 'test'
       ? getTestData()
-      : await (await fetch(`https://tripled.hu/merleg/api/${id}/${year}/${month}/${day}`)).json()
+      : await (await fetch(`http://165.232.65.144/api/get?y=${year}&m=${month}&d=${day}`)).json()
 
   const weightedDatas = result.map(data => ({
     ...data,

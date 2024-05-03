@@ -1,6 +1,8 @@
 process.env.TZ = "Europe/Budapest";
 
 import express from "express";
+// @ts-ignore
+import cors from "cors";
 
 import measurement from "./measurement";
 import get from "./get";
@@ -8,6 +10,7 @@ import get from "./get";
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors("*"));
 app.use(express.json());
 app.use(express.urlencoded());
 
