@@ -1,3 +1,5 @@
+// APA
+
 #include <SoftwareSerial.h>
 #include "LowPower.h"
 #include "HX711.h"
@@ -56,7 +58,7 @@ void loop() {
 
 void arduSleep(unsigned long minutes)
 {
-  uint32_t milliseconds = minutes * 60 * 1000;
+  uint32_t milliseconds = minutes * 45 * 1000;
   LowPower.longPowerDown(milliseconds);
 }
 
@@ -166,6 +168,6 @@ float getWeight()
   scale.begin(adc_dt, adc_sck);
   scale.set_scale(44.46);
 
-  float weight = scale.get_units(20) - 6667;
+  float weight = scale.get_units(20) + 833;
   return weight;
 }
