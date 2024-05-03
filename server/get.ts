@@ -41,5 +41,13 @@ export default async function get(req: Request, res: Response) {
 
   const response = await request.json();
 
-  return res.json(response);
+  const result = ((response.documents || []) as Record<string, string>[]).map(
+    (d) => {
+      const { _id, ...doc } = d;
+
+      return doc;
+    }
+  );
+
+  return res.json(result);
 }
