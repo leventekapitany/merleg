@@ -5,15 +5,6 @@ import config from "./config";
 export default async function measurement(req: Request, res: Response) {
   const params = req.body;
 
-  const { w, b } = params;
-
-  if (w === undefined || b === undefined) {
-    return res.json({
-      statusCode: 400,
-      body: "missing parameters w or b",
-    });
-  }
-
   const mongoData = {
     dataSource: config.DATA_SOURCE,
     collection: config.COLLECTION,
@@ -24,7 +15,6 @@ export default async function measurement(req: Request, res: Response) {
     },
   };
 
-  console.log("start req");
   const request = await fetch(config.DATA_API_URL + "/insertOne", {
     method: "POST",
     headers: {

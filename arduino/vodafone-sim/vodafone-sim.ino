@@ -1,6 +1,5 @@
 #include <SoftwareSerial.h>
 #include "LowPower.h"
-#include "ArduinoJson.h"
 #include "HX711.h"
 HX711 scale;
 
@@ -19,7 +18,7 @@ HX711 scale;
 
 const String PINCODE = "2336";
 const String APN = "internet.vodafone.net";
-const String ENDPOINT = "http://165.232.65.144/api/m?v=10.4&b=3&x=4&w=555";
+const String ENDPOINT = "http://165.232.65.144/api/m";
 //#define lm35_gnd_pin A3
 //#define lm35_dt_pin A0
 
