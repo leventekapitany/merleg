@@ -23,10 +23,12 @@ export async function getDayData(timestamp: number, id: string): Promise<Measure
       ? getTestData()
       : await (await fetch(`http://165.232.65.144/api/get?y=${year}&m=${month}&d=${day}`)).json()
 
-  const weightedDatas = result.map(data => ({
-    ...data,
-    weight: Math.round(data.weight / 100) / 10,
-  }))
+  const weightedDatas = result
+    .map(data => ({
+      ...data,
+      weight: Math.round(data.weight / 100) / 10,
+    }))
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
 
   const diffedDatas = weightedDatas.reverse().map((data, index) => ({
     ...data,

@@ -37,8 +37,10 @@ export default function Table({ data }: TableProps) {
                   <NavButton down />
                 </Time>
                 <Weight>
-                  <span>{item.weight}</span>
-                  <Unit>kg</Unit>
+                  <WeightInner>
+                    <span>{item.weight}</span>
+                    <Unit>kg</Unit>
+                  </WeightInner>
                 </Weight>
                 <Diff type={diff.type}>
                   <span>{diff.text}</span>
@@ -94,7 +96,7 @@ const Row = styled('div')`
 const Time = styled('div')`
   display: flex;
   align-items: center;
-  width: 30%;
+  width: 120px;
   font-size: 18px;
 `
 
@@ -103,14 +105,21 @@ const Weight = styled('div')`
 
   display: flex;
   gap: 4px;
-  justify-content: flex-end;
-  align-items: baseline;
-  width: 40%;
+  justify-content: center;
+  flex: 1;
   font-size: 32px;
 `
 
+const WeightInner = styled('div')`
+  min-width: 80px;
+  text-align: right;
+  display: flex;
+  gap: 4px;
+  align-items: baseline;
+`
+
 const Diff = styled('div')<{ type: DiffDetail['type'] }>`
-  width: 30%;
+  width: 120px;
   color: var(
     --${p =>
         ({

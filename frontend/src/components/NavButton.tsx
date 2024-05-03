@@ -9,9 +9,10 @@ interface NavButtonProps {
   left?: boolean
   down?: boolean
   onClick?: () => void
+  large?: boolean
 }
 
-const NavButton: React.FC<NavButtonProps> = ({ right, left, down }) => {
+const NavButton: React.FC<NavButtonProps> = ({ right, left, down, large }) => {
   let degree: number
 
   if (right) {
@@ -26,6 +27,7 @@ const NavButton: React.FC<NavButtonProps> = ({ right, left, down }) => {
 
   const Image = styled('img')`
     height: var(--size);
+    ${large ? 'height: 50px;' : ''}
     transform: rotate(${degree}deg);
   `
 

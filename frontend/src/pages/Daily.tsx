@@ -47,10 +47,12 @@ export default function Daily() {
       <Table data={data} />
       <Footer>
         <div onClick={() => handleBackwardClick()}>
-          <NavButton left />
+          <NavButton left large />
         </div>
-        <SummaryElement data={data} timestamp={date.getTime()} />
-        <div onClick={() => handleForwardClick()}>{!isToday && <NavButton right />}</div>
+        <SummaryContainer>
+          <SummaryElement data={data} timestamp={date.getTime()} />
+        </SummaryContainer>
+        <div onClick={() => handleForwardClick()}>{!isToday && <NavButton right large />}</div>
       </Footer>
       <Selector>
         <SelectorSelect name="id" onChange={handleSelect}>
@@ -61,6 +63,10 @@ export default function Daily() {
     </Container>
   )
 }
+
+const SummaryContainer = styled.div`
+  width: 300px;
+`
 
 const Container = styled('div')`
   padding: 12px;

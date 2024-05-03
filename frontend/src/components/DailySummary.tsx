@@ -25,7 +25,7 @@ export default function DailySummary({ data, timestamp }: Props) {
     <SummaryContainer>
       <DateContainer>{dateText}</DateContainer>
       <Weight>{data[0]?.weight} kg</Weight>
-      <DiffContainer className={diffData.type}>
+      <DiffContainer type={diffData.type}>
         <DiffText>{diffData.text}</DiffText>
         {diffData.type !== 'neutral' && <Unit>kg</Unit>}
       </DiffContainer>
@@ -60,7 +60,15 @@ const DateContainer = styled.span`
   font-weight: 500;
 `
 
-const DiffContainer = styled.div`
+const DiffContainer = styled('div')<{ type: 'good' | 'neutral' | 'bad' }>`
+  color: var(
+    --${p =>
+        ({
+          good: 'green',
+          neutral: 'blue',
+          bad: 'red',
+        })[p.type]}
+  );
   display: flex;
-  align-items: center;
+  align-items: baseline;
 `
