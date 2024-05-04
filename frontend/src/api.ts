@@ -14,5 +14,5 @@ export function getTestData(): Measurement[] {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function getDayData(date: Date, id: string): Promise<Measurement[]> {
-  return getData(date, id) as unknown as Promise<Measurement[]>
+  return getData(date, id)
 }
