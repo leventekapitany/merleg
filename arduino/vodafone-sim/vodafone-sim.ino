@@ -16,10 +16,10 @@ HX711 scale;
 #define stepdown_out_pin A2
 
 #define BAUDRATE 57600
-#define SLEEP_MINUTES 15
+#define SLEEP_MINUTES 60
 
-const String PINCODE = "2336";
-const String APN = "internet.vodafone.net";
+const String PINCODE = "3320";
+const String APN = "internet.telekom";
 const String ENDPOINT = "http://165.232.65.144/api/m";
 //#define lm35_gnd_pin A3
 //#define lm35_dt_pin A0
@@ -159,6 +159,8 @@ String getParams()
 
   param += "&stepdownOut=";
   param += getStepdownOut();
+
+  param += "&id=1";
 
   return param;
 }
