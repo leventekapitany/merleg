@@ -18,7 +18,7 @@ export default function Daily() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setData(await getDayData(date.getTime(), id))
+      setData(await getDayData(date, id))
     }
     fetchData().then(() => {
       window.scrollTo(0, document.body.scrollHeight)
