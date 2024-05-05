@@ -24,7 +24,7 @@ export default async function getData(date: Date, id: string): Promise<Measureme
 
   const mapped: Measurement[] = result.map(d => ({
     weight: Number((+d.weight / 1000).toFixed(2)),
-    battery: +d.battery,
+    battery: id === '1' ? -1 * +d.battery : +d.battery,
     date: d.date,
     diff: 0,
   }))
