@@ -8,7 +8,7 @@ export default async function get(req: Request, res: Response) {
 
   const { y, m, d } = params;
 
-  if ([y, m, d].includes(undefined)) {
+  if (y === undefined || m === undefined || d === undefined) {
     return res.json({
       statusCode: 400,
       body: "missing parameters y/m/d",
@@ -16,6 +16,9 @@ export default async function get(req: Request, res: Response) {
   }
 
   const date = new Date();
+  date.setFullYear(+y);
+  date.setMonth(+m - 1);
+  date.setDate(+d);
 
   const mongoData = {
     dataSource: config.DATA_SOURCE,

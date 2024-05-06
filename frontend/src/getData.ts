@@ -10,7 +10,7 @@ type MongoDoc = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function getData(date: Date, id: string): Promise<Measurement[]> {
+export async function getDataFromLambda(date: Date, id: string): Promise<Measurement[]> {
   const request = await fetch(LAMBDA_URL + `/?date=${date.toISOString()}&id=1`)
 
   const response = await request.json()
@@ -28,6 +28,44 @@ export default async function getData(date: Date, id: string): Promise<Measureme
     date: d.date,
     diff: 0,
   }))
+
+  return mapped
+    .map((d, idx) => ({
+      ...d,
+      diff: mapped[idx - 1] ? d.weight - mapped[idx - 1].weight : 0,
+    }))
+    .reverse()
+}
+
+export async function getDataFromMerlServer(date: Date, id: string): Promise<Measurement[]> {
+  const params = {
+    id,
+    y: date.getFullYear().toString(),
+    m: (date.getMonth() + 1).toString(),
+    d: date.getDate().toString(),
+  }
+
+  const request = await fetch(
+    'https://merl.hu/api/get?' + new URLSearchParams(Object.entries(params)),
+  )
+
+  const response = await request.json()
+
+  const result = ((response || []) as Record<string, string | Date>[]).map(d => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { _id, ...doc } = d
+
+    return doc
+  }) as MongoDoc[]
+
+  const mapped: Measurement[] = result.map(d => ({
+    weight: Number(((id === '1' ? -1 * +d.weight : +d.weight) / 1000).toFixed(2)),
+    battery: +d.battery,
+    date: d.date,
+    diff: 0,
+  }))
+
+  console.log(mapped)
 
   return mapped
     .map((d, idx) => ({
