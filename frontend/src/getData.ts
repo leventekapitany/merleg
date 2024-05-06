@@ -65,7 +65,31 @@ export async function getDataFromMerlServer(date: Date, id: string): Promise<Mea
     diff: 0,
   }))
 
-  console.log(mapped)
+  return mapped
+    .map((d, idx) => ({
+      ...d,
+      diff: mapped[idx - 1] ? d.weight - mapped[idx - 1].weight : 0,
+    }))
+    .reverse()
+}
+
+export async function getAllData(id: string): Promise<Measurement[]> {
+  const request = await fetch('https://merl.hu/api/get')
+  const response = await request.json()
+
+  const result = ((response || []) as Record<string, string | Date>[]).map(d => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { _id, ...doc } = d
+
+    return doc
+  }) as MongoDoc[]
+
+  const mapped: Measurement[] = result.map(d => ({
+    weight: Number(((id === '1' ? -1 * +d.weight : +d.weight) / 1000).toFixed(2)),
+    battery: +d.battery,
+    date: d.date,
+    diff: 0,
+  }))
 
   return mapped
     .map((d, idx) => ({
